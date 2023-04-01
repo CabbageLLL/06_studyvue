@@ -1,0 +1,47 @@
+git remote:
+  显示所有关联的远程库
+git push -u <库名> <分支名> :
+  向库推送代码, 并和当前分支关联
+git clone <url>:
+  克隆项目
+如果本地库的版本低于远程库的版本, push是推不上的
+git fetch:
+  fetch会自动下载所有代码, 但是不会自动合并, 需要手动合并
+git merge origin/main:
+  合并代码
+git pull:
+  从服务器下载代码, 并且自动合并
+git push <远程库> <本地分支>:<远程分支> :
+
+分离头指针:
+  当头指针没有指向某个分支的头部时, 在分离头指针状态下也可以操作代码,
+  但是这些操作不会出现任何分支上, 所以不要在分离头指针状态下操作仓库
+  git switch -c <分支名> <commit id>:
+    在commit id处新建分支
+
+标签
+  可以为提交记录添加标签, 可以通过标签识别出不同节点:
+  git tag <info>:
+    为节点添加tag
+  git tag <info> <commit id>:
+    为指定节点添加tag
+  git push <远程库> <tag>:
+    向远程库推送标签
+  git push <远程库> --tags:
+   向远程库推送所有标签
+  git tag -d <tag>:
+    删除标签
+  git clone <远程库> --delete <tag>:
+    删除远程标签
+
+gitignore
+  默认情况下, git会监视所有文件, 
+  可以通过在.gitignore中添加文件或文件夹的名字来关闭监视
+
+github静态页面
+  在github中可以部署一个静态网站供用户访问
+  要求:
+    静态页面的分支必须为gh-pages
+    如果希望页面可以通过xxx.github.io访问, 则需要将库的名字配置为xxx.github.io
+
+docusaurus

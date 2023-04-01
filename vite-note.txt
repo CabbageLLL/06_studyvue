@@ -1,0 +1,24 @@
+Vite:
+  开发时, 并不打包, 直接用ESM方式来运行项目
+  部署的时候打包
+  npx vite:
+    开启一个服务器, 调试代码
+  npx vite build:
+    打包代码
+  npx vite preview:
+    开启一个服务器, 预览打包后的代码
+  npm create vite:
+    自动创建项目
+  兼容性: 
+    1.安装一个插件
+      npm i -D @vitejs/plugin-legacy
+    2.配置
+      {
+        import { defineConfig } from "vite";
+        import legacy from "@vitejs/plugin-legacy";
+
+        // https://vitejs.dev/config/
+        export default defineConfig({
+          plugins: [legacy()],
+        });
+      }

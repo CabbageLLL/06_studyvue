@@ -44,4 +44,5 @@ github静态页面
     静态页面的分支必须为gh-pages
     如果希望页面可以通过xxx.github.io访问, 则需要将库的名字配置为xxx.github.io
 
-docusaurus
+docusaurus.io
+  可以快速部署一个静态网页

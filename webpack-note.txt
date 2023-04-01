@@ -1,0 +1,103 @@
+webpack
+  使用步骤:
+    1.初始化项目
+    2.安装依赖 webpack, webpack-cli
+    3.在项目在创建src目录, src中写代码(index.js)
+    4.执行npx webpack 进行打包
+    5.新建webpack.config.js文件进行配置 
+  注意:
+    1.在src文件夹下要用ES模块化规范, 其他位置用CommonJS规范
+
+webpack.config.js
+{
+  const path = require("node:path");
+  // 引入html插件
+  const htmlPlugin = require("html-webpack-plugin");
+  module.exports = {
+    mode: "production", // 设置打包模式, production为生产模式, development为开发模式
+
+    // entry: "./src/index.js", // 打包时的主文件, 默认为./src/index.js, 不建议修改
+    // entry: ["path1", "path2"], // 可以传入数组, 对指定的多个文件进行打包
+    /* // 将path1打包为name1.js, path2打包为name2.js
+      entry: {
+        name1: "path1",
+        name2: "path2",
+      }, 
+    */
+
+    output: {
+      // path: path.resolve(__dirname, "dist"), // 打包目录, 要求绝对路径
+      // filename: "build.js", // 打包后的文件名
+      // clean: true, // 自动清理打包目录
+    }, // 配置打包后的地址
+
+    /* 
+      webpack默认情况下, 只处理js文件, 当想要处理其他文件时, 需要引入loader
+      以css为例:
+        使用css-loader可以处理js中样式
+        使用步骤:
+          1.安装css-loader: npm i css-loader -D
+          2.配置
+          3.安装style-loader: npm i style-loader -D
+          4.配置, 注意两个loader的顺序, use数组倒序执行, 所以css-loader在后
+    */
+    /* 
+      bable:
+        将js中的新语法转换为旧语法提高代码的兼容性, 需要引入babel的loader
+        使用步骤:
+          1.安装: npm i -D babel-loader @babel/core @babel/preset-env
+          2.配置
+          3.可以在package.json中配置兼容列表
+            "browserslist";[
+              "defaults"
+            ]
+    */
+    module: {
+      rules: [
+        {
+          test: /\.css$/,
+          use: ["style-loader", "css-loader"],
+        }, // css-loader配置
+        {
+          test: /\.jpeg$/,
+          type: "asset/resource", //图片这种资源类数据, 可以通过指定type处理
+        }, // images处理配置
+        {
+          test: /\.(?:js|mjs|cjs)$/,
+          exclude: /node_modules/,
+          use: {
+            loader: "babel-loader",
+            options: {
+              presets: [["@babel/preset-env", { targets: "defaults" }]],
+            },
+          },
+        }, // babel-laoder配置
+      ],
+    },
+
+    plugins: [
+      new htmlPlugin({
+        // title: "hello webpack", // 设置网页名称
+        // template:"template.html" // 设置模板
+      }),
+    ],
+    /* 
+      plugin:
+        插件为webpack扩展功能
+        html-webpack-plugin:
+          在打包代码后, 自动在打包目录生成html页面
+          使用步骤:
+            1.安装依赖
+            2.配置
+    */
+
+    /* 
+      自动构建:
+        方式1: npx webpack --watch
+        方式2:
+          1.安装开发服务器:npm i -D webpack-dev-server
+          2.npm webpack server --open
+    */
+    devtool: "inline-source-map", //设置一个代码的映射, 运行的是打包后的, 可以调试源码
+  };
+}
